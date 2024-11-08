@@ -2,7 +2,7 @@
 
 Easy-to-use and ergonomic library for interacting with bluesky.
 
-This fork has instructions for using ATProto with wireless enabled <br>
+This fork has instructions for using ATProto with wireless enabled 
 MicroPython, such as Pico W, to get as many people writing bsky code as possible. 
 
 ## Setup
@@ -21,7 +21,7 @@ with your Wifi network and BlueSky credentials.
 
 ## Run the example
 
-Now you can run the [example](example\bsky.py)
+Now you can run the [example](example/bsky.py)
 
 ## Usage
 

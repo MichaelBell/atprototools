@@ -1,7 +1,4 @@
 import requests
-import datetime
-import os
-import unittest
 
 # ATP_HOST = "https://bsky.social"
 # ATP_AUTH_TOKEN = ""
@@ -79,8 +76,10 @@ class Session():
         bloot_cid = self.getBlootByUrl(url).json().get('thread').get('post').get('cid')
 
         # subject -> uri is the maia one (thing rt'ing, scx)
-        timestamp = datetime.datetime.now(datetime.timezone.utc)
-        timestamp = timestamp.isoformat().replace('+00:00', 'Z')
+        #timestamp = datetime.datetime.now(datetime.timezone.utc)
+        #timestamp = timestamp.isoformat().replace('+00:00', 'Z')
+        timestamp = time.gmtime()
+        timestamp = f"{timestamp[0]}-{timestamp[1]}-{timestamp[2]}T{timestamp[3]}:{timestamp[4]}:{timestamp[5]}Z"
 
         headers = {"Authorization": "Bearer " + self.ATP_AUTH_TOKEN}
 
@@ -336,19 +335,3 @@ def register(user, password, invcode, email):
     )
 
     return resp
-        
-
-if __name__ == "__main__":
-    # This code will only be executed if the script is run directly
-    # login(os.environ.get("BSKY_USERNAME"), os.environ.get("BSKY_PASSWORD"))
-    sess = Session(os.environ.get("BSKY_USERNAME"), os.environ.get("BSKY_PASSWORD"))
-    # f = getLatestNBloots('klatz.co',1).content
-    # print(f)
-    # resp = rebloot("https://staging.bsky.app/profile/klatz.co/post/3jt22a3jx5l2a")
-    # resp = getArchive()
-    import pdb; pdb.set_trace()
-
-
-
-# resp = login()
-# post("test post")

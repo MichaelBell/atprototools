@@ -1,4 +1,5 @@
 import requests
+import datetime
 
 # ATP_HOST = "https://bsky.social"
 # ATP_AUTH_TOKEN = ""
@@ -76,10 +77,8 @@ class Session():
         bloot_cid = self.getBlootByUrl(url).json().get('thread').get('post').get('cid')
 
         # subject -> uri is the maia one (thing rt'ing, scx)
-        #timestamp = datetime.datetime.now(datetime.timezone.utc)
-        #timestamp = timestamp.isoformat().replace('+00:00', 'Z')
-        timestamp = time.gmtime()
-        timestamp = f"{timestamp[0]}-{timestamp[1]}-{timestamp[2]}T{timestamp[3]}:{timestamp[4]}:{timestamp[5]}Z"
+        timestamp = datetime.datetime.now(datetime.timezone.utc)
+        timestamp = timestamp.isoformat().replace('+00:00', 'Z')
 
         headers = {"Authorization": "Bearer " + self.ATP_AUTH_TOKEN}
 

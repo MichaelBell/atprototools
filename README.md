@@ -1,40 +1,34 @@
 ## atprototools
 
-Easy-to-use and ergonomic library for interacting with bluesky, <br>
-packaged so you can `pip install atprototools` and go.
+Easy-to-use and ergonomic library for interacting with bluesky.
 
-this library should serve as a gentle guide of mostly natural-language <br>
-python to get as many people writing bsky code as possible. 
+This fork has instructions for using ATProto with wireless enabled <br>
+MicroPython, such as Pico W, to get as many people writing bsky code as possible. 
 
-## ONE-LINER TO GET STARTED *INSTANTLY* (ノ ゜Д゜)ノ ︵:
-```
-pip install atprototools && export BSKY_USERNAME="yourname.bsky.social" && export BSKY_PASSWORD="yourpassword" &&  python -i -c "import atprototools, os; atp = atprototools.Session(os.environ.get('BSKY_USERNAME'), os.environ.get('BSKY_PASSWORD')); atp.postBloot('hello world from atprototools!')"
-# now use atp.whatever_you_need
-```
+## Setup
 
-## TWO-LINER TO GET STARTED YOUR SECOND TIME
-```
-export BSKY_USERNAME="yourname.bsky.social" && export BSKY_PASSWORD="yourpassword"
-python -i -c "import atprototools, os; atp = atprototools.Session(os.environ.get('BSKY_USERNAME'), os.environ.get('BSKY_PASSWORD'))"
-# now use atp.whatever_you_need
-```
+- Copy the atprototools folder from this repo to your Micropython device.
+- Copy [datetime.py](https://github.com/micropython/micropython-lib/blob/master/python-stdlib/datetime/datetime.py) to your Micropython device.
 
-Usage:
-
-```bash
-pip install atprototools
-export BSKY_USERNAME="yourname.bsky.social"
-export BSKY_PASSWORD="yourpassword"
+Create a secrets.py on your Micropython device containing:
+```python
+SSID = 'xx'
+PASSWORD = 'xx'
+BSKY_USERNAME="xx.bsky.social"
+BSKY_PASSWORD="xx"
 ```
+with your Wifi network and BlueSky credentials.
+
+## Run the example
+
+Now you can run the [example](example\bsky.py)
+
+## Usage
+
+Further usage examples:
 
 ```python
-from atprototools import Session
-import os
-
-USERNAME = os.environ.get("BSKY_USERNAME")
-PASSWORD = os.environ.get("BSKY_PASSWORD")
-
-session = Session(USERNAME, PASSWORD)
+session = Session(BSKY_USERNAME, BSKY_PASSWORD)
 
 # make a text post
 resp = session.postBloot("hello world from atprototools")
@@ -59,22 +53,17 @@ first_post = resp.json()
 # if you want to reply to root make both the same
 reply_ref = {"root": first_post, "parent": first_post}
 session.postBloot("this is the reply", reply_to=reply_ref)
-# TODO write a test for replies
-```
 
-
-PEP8 formatted; use autopep8.
-
-### Running tests
-
-```
-# clone repo
-cd atprototools
-python -m unittest
+# reply to a fetched post
+latest_bloot = session.getLatestBloot(BSKY_USERNAME).json()
+prev_post = latest_bloot['feed'][0]['post']
+reply_ref = {"root": prev_post, "parent": prev_post}
+session.postBloot("this is another reply", reply_to=reply_ref)
 ```
 
 ### changelog
 
+- Micropython supporting fork
 - 0.0.17: chaged case to consistently be camelCase - thanks BSculfor!
 - 0.0.16: replies! added to post_bloot, thanks to Jxck-S
 - 0.0.15: get_bloot_by_url switched to getPosts instead of getPostThread

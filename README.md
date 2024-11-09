@@ -8,16 +8,16 @@ MicroPython, such as Pico W, to get as many people writing bsky code as possible
 ## Setup
 
 - Copy the atprototools folder from this repo to your Micropython device.
-- Copy [datetime.py](https://github.com/micropython/micropython-lib/blob/master/python-stdlib/datetime/datetime.py) to your Micropython device.
 
 Create a secrets.py on your Micropython device containing:
 ```python
 SSID = 'xx'
 PASSWORD = 'xx'
+COUNTRY = 'GB'
 BSKY_USERNAME="xx.bsky.social"
 BSKY_PASSWORD="xx"
 ```
-with your Wifi network and BlueSky credentials.
+with your Wifi network, country code and BlueSky credentials.
 
 ## Run the example
 
